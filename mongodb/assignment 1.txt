@@ -1,0 +1,1185 @@
+Microsoft Windows [Version 10.0.19044.1165]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\anikjain>mongo
+MongoDB shell version v5.0.11
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("238f6345-e4bc-4233-92c2-90c4ade79f7f") }
+MongoDB server version: 5.0.11
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-08-24T22:53:18.733+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2022-08-24T22:53:18.733+05:30: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> dbs
+uncaught exception: ReferenceError: dbs is not defined :
+@(shell):1:1
+> db
+test
+> dbs
+uncaught exception: ReferenceError: dbs is not defined :
+@(shell):1:1
+> show dbs
+admin      0.000GB
+config     0.000GB
+demo-test  0.000GB
+local      0.000GB
+> use demo-test
+switched to db demo-test
+> show collections
+users
+> db.users.find()
+{ "_id" : ObjectId("63064a82d93413ee09fa2af4"), "name" : "manuel" }
+{ "_id" : ObjectId("63064a82d93413ee09fa2af5"), "name" : "chris", "age" : 22 }
+{ "_id" : ObjectId("63064ab6d93413ee09fa2af6"), "name" : "lisa", "age" : 25 }
+{ "_id" : ObjectId("63064b43d93413ee09fa2af7"), "name" : "susanna", "age" : 25, "address" : { "street" : "First street", "city" : "new orleans" } }
+{ "_id" : ObjectId("63064cacd93413ee09fa2af8"), "name" : "Aniket", "age" : 21 }
+> help
+        db.help()                    help on db methods
+        db.mycoll.help()             help on collection methods
+        sh.help()                    sharding helpers
+        rs.help()                    replica set helpers
+        help admin                   administrative help
+        help connect                 connecting to a db help
+        help keys                    key shortcuts
+        help misc                    misc things to know
+        help mr                      mapreduce
+
+        show dbs                     show database names
+        show collections             show collections in current database
+        show users                   show users in current database
+        show profile                 show most recent system.profile entries with time >= 1ms
+        show logs                    show the accessible logger names
+        show log [name]              prints out the last segment of log in memory, 'global' is default
+        use <db_name>                set current database
+        db.mycoll.find()             list objects in collection mycoll
+        db.mycoll.find( { a : 1 } )  list objects in mycoll where a == 1
+        it                           result of the last line evaluated; use to further iterate
+        DBQuery.shellBatchSize = x   set default number of items to display on shell
+        exit                         quit the mongo shell
+> show users
+>  show keys
+uncaught exception: Error: don't know how to show [keys] :
+shellHelper.show@src/mongo/shell/utils.js:1211:11
+shellHelper@src/mongo/shell/utils.js:838:15
+@(shellhelp2):1:1
+> show keys
+uncaught exception: Error: don't know how to show [keys] :
+shellHelper.show@src/mongo/shell/utils.js:1211:11
+shellHelper@src/mongo/shell/utils.js:838:15
+@(shellhelp2):1:1
+> help keys
+Tab completion and command history is available at the command prompt.
+Some emacs keystrokes are available too:
+  Ctrl-A start of line
+  Ctrl-E end of line
+  Ctrl-K del to end of line
+
+Multi-line commands
+You can enter a multi line javascript expression.  If parens, braces, etc. are not closed, you will see a new line
+beginning with '...' characters.  Type the rest of your expression.  Press Ctrl-C to abort the data entry if you
+get stuck.
+> show dbs
+admin      0.000GB
+config     0.000GB
+demo-test  0.000GB
+local      0.000GB
+> db
+demo-test
+> show collections
+city
+users
+> db.city.find
+db.city.find(               db.city.findOne(            db.city.findOneAndReplace(
+db.city.findAndModify(      db.city.findOneAndDelete(   db.city.findOneAndUpdate(
+> db.city.findOne()
+{
+        "_id" : "01001",
+        "city" : "AGAWAM",
+        "loc" : [
+                -72.622739,
+                42.070206
+        ],
+        "pop" : 15338,
+        "state" : "MA"
+}
+> db.movies.insert({'tiltle':'Fight Club','writer':'chuck palahniuko','year':1999,'actors':['brad pitt','edward norton']})
+WriteResult({ "nInserted" : 1 })
+> db.movies.find().preety
+> db.movies.find().preety()
+uncaught exception: TypeError: db.movies.find(...).preety is not a function :
+@(shell):1:1
+> db.movies.find()
+{ "_id" : ObjectId("6306e9a36f26a19bb639d401"), "tiltle" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+> db.movies.find('actors')
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "Executor error during find command :: caused by :: ReferenceError: actors is not defined :\n@:1:15\n",
+        "code" : 139,
+        "codeName" : "JSInterpreterFailure"
+}
+> db.movies.find('actors':1)
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:23
+> db.movies.find({'actors':1)
+... "
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:26
+> db.movies.find({'actors':1})
+> db.movies.find({'actors'})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:24
+> db.movies.find({'actors':})
+uncaught exception: SyntaxError: expected expression, got '}' :
+@(shell):1:25
+> db.movies.update({$rename:{'tiltle':'title'}})
+uncaught exception: Error: need an update object or pipeline :
+DBCollection.prototype._parseUpdate@src/mongo/shell/collection.js:461:15
+DBCollection.prototype.update@src/mongo/shell/collection.js:510:18
+@(shell):1:1
+> db.movies.update({'year':1999},{$rename:{'tiltle':'title'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.movies.find()
+{ "_id" : ObjectId("6306e9a36f26a19bb639d401"), "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ], "title" : "Fight Club" }
+> db.movies.drop()
+true
+> db.movies.insert({'title':'Fight Club','writer':'chuck palahniuko','year':1999,'actors':['brad pitt','edward norton']})
+WriteResult({ "nInserted" : 1 })
+> db.movies.distinct('title')
+[ "Fight Club" ]
+> db.movies.insert({'title':'Pulp fiction','writer':'quentin tarantino','year':1994,'actors':['john travolta','uma thurman']},)
+WriteResult({ "nInserted" : 1 })
+> {'title':'Inglorious Basterds','writer':'quentin tarantino','year':2009,'actors':['brad pitt','diane kruger','eli roth']},
+... {'title':'The Hobbit:an unexpected journey','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit'},
+... {'title':'The Hobbit:the desolation of smaug','writer':'J.R.R tolkein','year':2013,'franchise':'the hobbit'},
+... {'title':'The Hobbit:the battle of the five armies','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit','synopsis,:'bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness'},
+uncaught exception: SyntaxError: unexpected token: ':' :
+@(shell):1:8
+> {'title':'pee wee herman's big adventure'},
+uncaught exception: SyntaxError: unexpected token: ':' :
+@(shell):1:8
+> db.movies.find()
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+> db.movies.insert({'title':'Inglorious Basterds','writer':'quentin tarantino','year':2009,'actors':['brad pitt','diane kruger','eli roth']})
+WriteResult({ "nInserted" : 1 })
+> db.movies.insert({'title':'The Hobbit:an unexpected journey','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit'},
+... {'title':'The Hobbit:the desolation of smaug','writer':'J.R.R tolkein','year':2013,'franchise':'the hobbit'},
+... {'title':'The Hobbit:the battle of the five armies','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit','synopsis',:'bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness'},
+... {'title':'pee wee herman's big adventure'},
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):3:124
+> db.movies.find()
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+{ "_id" : ObjectId("6306ed8a6f26a19bb639d404"), "title" : "Inglorious Basterds", "writer" : "quentin tarantino", "year" : 2009, "actors" : [ "brad pitt", "diane kruger", "eli roth" ] }
+> db.movies.insert({'title':'The Hobbit:an unexpected journey','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit'},)
+WriteResult({ "nInserted" : 1 })
+> {'title':'The Hobbit:the desolation of smaug','writer':'J.R.R tolkein','year':2013,'franchise':'the hobbit'},
+... {'title':'The Hobbit:the battle of the five armies','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit','synopsis',:'bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness'},
+... {'title':'pee wee herman's big adventure'},
+uncaught exception: SyntaxError: unexpected token: ':' :
+@(shell):1:8
+> db.movies.find()
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+{ "_id" : ObjectId("6306ed8a6f26a19bb639d404"), "title" : "Inglorious Basterds", "writer" : "quentin tarantino", "year" : 2009, "actors" : [ "brad pitt", "diane kruger", "eli roth" ] }
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit" }
+> db.novies.insert({'title':'The Hobbit:the desolation of smaug','writer':'J.R.R tolkein','year':2013,'franchise':'the hobbit'})
+WriteResult({ "nInserted" : 1 })
+> db.novies.drop()
+true
+> db.movies.insert({'title':'The Hobbit:the desolation of smaug','writer':'J.R.R tolkein','year':2013,'franchise':'the hobbit'})
+WriteResult({ "nInserted" : 1 })
+> db.movies.find()
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+{ "_id" : ObjectId("6306ed8a6f26a19bb639d404"), "title" : "Inglorious Basterds", "writer" : "quentin tarantino", "year" : 2009, "actors" : [ "brad pitt", "diane kruger", "eli roth" ] }
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit" }
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit"
+}
+> db.movies.insert({'title':'The Hobbit:the battle of the five armies','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit','synopsis',:'bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness'})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:141
+> db.movies.insert({'title':'The Hobbit:the battle of the five armies','writer':'J.R.R tolkein','year':2012,'franchise':'the hobbit','synopsis':'bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness'})
+WriteResult({ "nInserted" : 1 })
+> db.movies.insert({'title':'pee wee herman's big adventure'},
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:42
+> db.movies.insert({'title':'pee wee herman's big adventure'})
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:42
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.insert({'title':'pee wee herman's big adventure'})
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:42
+> db.movies.insert({'title':'avatar'})
+WriteResult({ "nInserted" : 1 })
+> db.movies.insert({'title':'pee wee hermans big adventure'})
+WriteResult({ "nInserted" : 1 })
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+{ "_id" : ObjectId("6306eedc6f26a19bb639d409"), "title" : "avatar" }
+{
+        "_id" : ObjectId("6306eee66f26a19bb639d40a"),
+        "title" : "pee wee hermans big adventure"
+}
+> db.movies.find({'synopsis':/bilbo/})
+{ "_id" : ObjectId("6306ee6d6f26a19bb639d408"), "title" : "The Hobbit:the battle of the five armies", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness" }
+> db.movies.find({'synopsis':/bilbo/}).pretty()
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+{ "_id" : ObjectId("6306eedc6f26a19bb639d409"), "title" : "avatar" }
+{
+        "_id" : ObjectId("6306eee66f26a19bb639d40a"),
+        "title" : "pee wee hermans big adventure"
+}
+> db.movies.find({'writer':'quentin tarantino'})
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+{ "_id" : ObjectId("6306ed8a6f26a19bb639d404"), "title" : "Inglorious Basterds", "writer" : "quentin tarantino", "year" : 2009, "actors" : [ "brad pitt", "diane kruger", "eli roth" ] }
+> db.movies.find({'franchise':'the hobbit'})
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit" }
+{ "_id" : ObjectId("6306ee6d6f26a19bb639d408"), "title" : "The Hobbit:the battle of the five armies", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness" }
+> db.movies.find({'franchise':'the hobbit'}).pretty()
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.find({$lt:{'year':2000}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $lt. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.movies.find({'year':{$lt:2000}})
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+> db.movies.find({'year':{$lt:2000},{$gt:2010}})
+uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:34
+> db.movies.find({'year':{$lt:2000}},{'year':{$gt:2010}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "Expression $gt takes exactly 2 arguments. 1 were passed in.",
+        "code" : 16020,
+        "codeName" : "Location16020"
+}
+> db.movies.find({'$and':{'year':{$gt:2010}},{'year':{$lt:2000}}})
+uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:43
+> db.movies.find({$or:[{$gt:2010},{$lt:2000}]})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "unknown top level operator: $gt. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.movies.find({'$and':{'year':[{$gt:2010}]}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "$and must be an array",
+        "code" : 2,
+        "codeName" : "BadValue"
+}
+> db.movies.find({$or:[{year:{$gt:2010}},{year:{$lt:2000}}]})
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman" ] }
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit" }
+{ "_id" : ObjectId("6306ee6d6f26a19bb639d408"), "title" : "The Hobbit:the battle of the five armies", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness" }
+> db.movies.find({'actors':/brad pitt/}).pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+> db.movies.update({'title':'The Hobbit:an unexpected journey'},{$set:{'synopsis':'a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.movies.update({'title':'The Hobbit:the desolation of smaug'},{$set:{'synopsis':'the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.movies.find({'actors':brad pitt}).pretty()
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:30
+> db.movies.find({'actors':'brad pitt'}).pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+{ "_id" : ObjectId("6306eedc6f26a19bb639d409"), "title" : "avatar" }
+{
+        "_id" : ObjectId("6306eee66f26a19bb639d40a"),
+        "title" : "pee wee hermans big adventure"
+}
+> db.movies.update({'title':'Pulp fiction'},{$push:{'actors':'Samuel l jackson'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman",
+                "Samuel l jackson"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+{ "_id" : ObjectId("6306eedc6f26a19bb639d409"), "title" : "avatar" }
+{
+        "_id" : ObjectId("6306eee66f26a19bb639d40a"),
+        "title" : "pee wee hermans big adventure"
+}
+> db.movies.find('synopsis':/bilbo/)
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:25
+> db.movies.find({'synopsis':/bilbo/})
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit", "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring" }
+{ "_id" : ObjectId("6306ee6d6f26a19bb639d408"), "title" : "The Hobbit:the battle of the five armies", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness" }
+> db.movies.find({'synopsis':/bilbo/}).pretty()
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.find({'synopsis':/gandalf/}).pretty()
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+> db.movies.find({$or:[{'synopsis':/dwarves/},{'synopsis':/hobbit/}]).pretty()
+...
+... b
+... /
+... }}
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:66
+> db.movies.find({$or:[{'synopsis':/dwarves/},{'synopsis':/hobbit/}]})
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit", "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring" }
+> db.movies.find({$or:[{'synopsis':/dwarves/},{'synopsis':/hobbit/}]}).pretty()
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+> db.movies.find({$and:[{'synopsis':/gold/},{'synopsis':/dragon/}]}).pretty()
+> db.movies.find({$and:[{'synopsis':/reluctant/},{'synopsis':/quest/}]}).pretty()
+> db.movies.find({$and:[{'synopsis':/reluctant/},{'synopsis':/hobbit/}]}).pretty()
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+> db.movies.find({$and:[{'synopsis'://},{'synopsis':/bilbo/}]}).pretty()
+... }
+... }}}
+uncaught exception: SyntaxError: expected expression, got '}' :
+@(shell):2:0
+> db.movies.find({$and:[{'synopsis':/the/},{'synopsis':/bilbo/}]}).pretty()
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.delete({'title':'avatar'})
+uncaught exception: TypeError: db.movies.delete is not a function :
+@(shell):1:1
+> db.movies.deleteOne({'title':'avatar'})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.movies.deleteOne({'title':'pee wee hermans big adventure'})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman",
+                "Samuel l jackson"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> show collections
+city
+movies
+users
+> dbs
+uncaught exception: ReferenceError: dbs is not defined :
+@(shell):1:1
+> show dbs
+admin      0.000GB
+config     0.000GB
+demo-test  0.002GB
+local      0.000GB
+> db.movies.update
+function(query, updateSpec, upsert, multi) {
+    var parsed = this._parseUpdate(query, updateSpec, upsert, multi);
+    var query = parsed.query;
+    var updateSpec = parsed.updateSpec;
+    const hint = parsed.hint;
+    var upsert = parsed.upsert;
+    var multi = parsed.multi;
+    var wc = parsed.wc;
+    var collation = parsed.collation;
+    var arrayFilters = parsed.arrayFilters;
+    let letParams = parsed.let;
+
+    var result = undefined;
+    var startTime =
+        (typeof (_verboseShell) === 'undefined' || !_verboseShell) ? 0 : new Date().getTime();
+
+    if (this.getMongo().writeMode() != "legacy") {
+        var bulk = this.initializeOrderedBulkOp();
+
+        if (letParams) {
+            bulk.setLetParams(letParams);
+        }
+        var updateOp = bulk.find(query);
+
+        if (hint) {
+            updateOp.hint(hint);
+        }
+
+        if (upsert) {
+            updateOp = updateOp.upsert();
+        }
+
+        if (collation) {
+            updateOp.collation(collation);
+        }
+
+        if (arrayFilters) {
+            updateOp.arrayFilters(arrayFilters);
+        }
+
+        if (multi) {
+            updateOp.update(updateSpec);
+        } else {
+            updateOp.updateOne(updateSpec);
+        }
+
+        try {
+            result = bulk.execute(wc).toSingleResult();
+        } catch (ex) {
+            if (ex instanceof BulkWriteError) {
+                result = ex.toSingleResult();
+            } else if (ex instanceof WriteCommandError) {
+                result = ex;
+            } else {
+                // Other exceptions thrown
+                throw ex;
+            }
+        }
+    } else {
+        if (collation) {
+            throw new Error("collation requires use of write commands");
+        }
+
+        if (arrayFilters) {
+            throw new Error("arrayFilters requires use of write commands");
+        }
+
+        this.getMongo().update(this._fullName, query, updateSpec, upsert, multi);
+
+        // Enforce write concern, if required
+        if (wc) {
+            result = this.runCommand("getLastError", wc instanceof WriteConcern ? wc.toJSON() : wc);
+        }
+    }
+
+    this._printExtraInfo("Updated", startTime);
+    return result;
+}
+> db.movies.find()
+{ "_id" : ObjectId("6306eb3b6f26a19bb639d402"), "title" : "Fight Club", "writer" : "chuck palahniuko", "year" : 1999, "actors" : [ "brad pitt", "edward norton" ] }
+{ "_id" : ObjectId("6306ed4a6f26a19bb639d403"), "title" : "Pulp fiction", "writer" : "quentin tarantino", "year" : 1994, "actors" : [ "john travolta", "uma thurman", "Samuel l jackson" ] }
+{ "_id" : ObjectId("6306ed8a6f26a19bb639d404"), "title" : "Inglorious Basterds", "writer" : "quentin tarantino", "year" : 2009, "actors" : [ "brad pitt", "diane kruger", "eli roth" ] }
+{ "_id" : ObjectId("6306edcf6f26a19bb639d405"), "title" : "The Hobbit:an unexpected journey", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug" }
+{ "_id" : ObjectId("6306ee076f26a19bb639d407"), "title" : "The Hobbit:the desolation of smaug", "writer" : "J.R.R tolkein", "year" : 2013, "franchise" : "the hobbit", "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring" }
+{ "_id" : ObjectId("6306ee6d6f26a19bb639d408"), "title" : "The Hobbit:the battle of the five armies", "writer" : "J.R.R tolkein", "year" : 2012, "franchise" : "the hobbit", "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness" }
+> db.movies.find().pretty
+function() {
+    this._prettyShell = true;
+    return this;
+}
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman",
+                "Samuel l jackson"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.update({'year':2012},{'_id':2})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 0,
+        "nModified" : 0,
+        "writeError" : {
+                "code" : 66,
+                "errmsg" : "After applying the update, the (immutable) field '_id' was found to have been altered to _id: 2.0"
+        }
+})
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman",
+                "Samuel l jackson"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
+> db.movies.find('_id':2)
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:20
+> db.movies.find({'_id':2})
+> db.movies.find({'_id':2.0})
+> db.movies.update({'year':2013},{'_id':2})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 0,
+        "nModified" : 0,
+        "writeError" : {
+                "code" : 66,
+                "errmsg" : "After applying the update, the (immutable) field '_id' was found to have been altered to _id: 2.0"
+        }
+})
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6306eb3b6f26a19bb639d402"),
+        "title" : "Fight Club",
+        "writer" : "chuck palahniuko",
+        "year" : 1999,
+        "actors" : [
+                "brad pitt",
+                "edward norton"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed4a6f26a19bb639d403"),
+        "title" : "Pulp fiction",
+        "writer" : "quentin tarantino",
+        "year" : 1994,
+        "actors" : [
+                "john travolta",
+                "uma thurman",
+                "Samuel l jackson"
+        ]
+}
+{
+        "_id" : ObjectId("6306ed8a6f26a19bb639d404"),
+        "title" : "Inglorious Basterds",
+        "writer" : "quentin tarantino",
+        "year" : 2009,
+        "actors" : [
+                "brad pitt",
+                "diane kruger",
+                "eli roth"
+        ]
+}
+{
+        "_id" : ObjectId("6306edcf6f26a19bb639d405"),
+        "title" : "The Hobbit:an unexpected journey",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "a reluctant hobbit , bilbo baggins , set out to the lonely mountain with a spirited group of dwarves dragon smaug"
+}
+{
+        "_id" : ObjectId("6306ee076f26a19bb639d407"),
+        "title" : "The Hobbit:the desolation of smaug",
+        "writer" : "J.R.R tolkein",
+        "year" : 2013,
+        "franchise" : "the hobbit",
+        "synopsis" : "the dwarves along with bilbo baggins and gandalf the grey, contiue their quest to reclaim erebor their homeland from smaug . bilbo baggins magical ring"
+}
+{
+        "_id" : ObjectId("6306ee6d6f26a19bb639d408"),
+        "title" : "The Hobbit:the battle of the five armies",
+        "writer" : "J.R.R tolkein",
+        "year" : 2012,
+        "franchise" : "the hobbit",
+        "synopsis" : "bilbo and company are forced to engage in a war againsta an army of combats and keepthe lonely mountain from falling into the hands of a rising darkness"
+}
